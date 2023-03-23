@@ -13,7 +13,7 @@ def generate_password():
     digit1 = random.choice(string.digits)
     digit2 = random.choice(string.digits)
 
-    # Generate a random 10-character string of uppercase and lowercase letters
+    # Generate a random 6-character string of uppercase and lowercase letters
     chars = string.ascii_letters
     password = ''
     for i in range(6):
