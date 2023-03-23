@@ -15,7 +15,9 @@ def generate_password():
 
     # Generate a random 10-character string of uppercase and lowercase letters
     chars = string.ascii_letters
-    password = ''.join(random.choice(chars) for i in range(10))
+    password = ''
+    for i in range(6):
+        password += (random.choice(chars))
 
     # Concatenate the components of the password and return the result
     return f"{first_special}{digit1}{digit2}{second_special}{password}"
