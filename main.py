@@ -5,7 +5,7 @@ import tkinter as tk
 
 def generate_password():
     # Define the set of special characters and choose two at random
-    specials = '!@#$%^&*()_+'
+    specials = '!@#$%&*()_+'
     first_special = random.choice(specials)
     second_special = random.choice(specials)
 
