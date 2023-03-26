@@ -1,58 +1,69 @@
+from tkinter import *
+import pycountry
 import random
 import string
-import tkinter as tk
+import pyperclip
+
+
+def generate_country_name():
+    countries = list(pycountry.countries)
+    country = random.choice(countries)
+    if 5 < len(country.name) < 8 and len(country.name.split()) == 1:
+        return country.name
+    else:
+        return generate_country_name()
+
+
+def generate_country_password():
+    special_chars = "-!@*?$_.%"
+    digits = string.digits
+
+    country_name = generate_country_name()
+
+    password = random.choice(special_chars) # one special character at the beginning
+    password += ''.join(random.choice(digits) for _ in range(2)) # 2 digits
+    password += random.choice(special_chars) # one special character
+    password += country_name
+
+    return password
 
 
 def generate_password():
-    # Define the set of special characters and choose two at random
-    specials = '!@#$%&*()_+'
-    first_special = random.choice(specials)
-    second_special = random.choice(specials)
+    special_chars = "-!@*?$_.%"
+    digits = string.digits
+    
+    password = random.choice(special_chars) # one special character at the beginning
+    password += ''.join(random.choice(digits) for _ in range(2)) # 2 digits
+    password += random.choice(special_chars) # one special character
+    password += ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(6)) # 6 character long string
+    
+    return password
 
-    # Choose 2 random digits
-    digit1 = random.choice(string.digits)
-    digit2 = random.choice(string.digits)
-
-    # Generate a random 6-character string of uppercase and lowercase letters
-    chars = string.ascii_letters
-    password = ''
-    for i in range(6):
-        password += (random.choice(chars))
-
-    # Concatenate the components of the password and return the result
-    return f"{first_special}{digit1}{digit2}{second_special}{password}"
-
-
-def copy_to_clipboard(password):
-    root = tk.Tk()
-    root.withdraw()
-    root.clipboard_clear()
-    root.clipboard_append(password)
-    root.update()
-    root.destroy()
+def copy_to_clipboard(password_var):
+    password = password_var.get()
+    pyperclip.copy(password)
 
 
 def generate_password_gui():
-    # Create the main window
-    window = tk.Tk()
-    window.title("Password Generator")
+    root = Tk()
+    root.title("Password Generator")
+    root.geometry("300x200")
 
-    # Create a label to display the generated password
-    password_label = tk.Label(window, text="", font=("Arial", 16))
-    password_label.pack()
+    password_var = StringVar()
 
-    # Create a button to generate a new password
-    generate_button = tk.Button(window, text="Generate Password",
-                                command=lambda: password_label.config(text=generate_password()))
-    generate_button.pack()
+    password_label = Label(root, textvariable=password_var, font=("Helvetica", 16))
+    password_label.pack(pady=10)
 
-    # Create a button to copy the password to the clipboard
-    copy_button = tk.Button(window, text="Copy to Clipboard",
-                            command=lambda: copy_to_clipboard(password_label.cget("text")))
-    copy_button.pack()
+    generate_password_button = Button(root, text="Generate Password", font=("Helvetica", 12), command=lambda: password_var.set(generate_password()))
+    generate_password_button.pack(pady=10)
 
-    # Start the main event loop
-    window.mainloop()
+    generate_country_button = Button(root, text="Generate Country Password", font=("Helvetica", 12), command=lambda: password_var.set(generate_country_password()))
+    generate_country_button.pack(pady=10)
 
+    copy_button = Button(root, text="Copy to Clipboard", command=lambda: copy_to_clipboard(password_var))
+
+    copy_button.pack(pady=10)
+
+    root.mainloop()
 
 generate_password_gui()
