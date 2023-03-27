@@ -1,4 +1,4 @@
 # passwordPassword
-This is just a mere password generator.
+This is just a password generator.
 
 That's it.
