@@ -48,6 +48,7 @@ def generate_password_gui():
     root = Tk()
     root.title("Password Generator")
     root.geometry("300x200")
+    root.iconbitmap("pwd.ico")
 
     password_var = StringVar()
 
