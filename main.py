@@ -23,7 +23,9 @@ def generate_country_password():
     password = random.choice(special_chars) # one special character at the beginning
     password += ''.join(random.choice(digits) for _ in range(2)) # 2 digits
     password += random.choice(special_chars) # one special character
-    password += country_name
+    password = (''.join(random.sample(password, len(password))))
+    pos = random.randint(0, len(password) - 1)  # pick random position to insert name
+    password = "".join((password[:pos], country_name, password[pos:]))  # insert name at pos
 
     return password
 
@@ -36,8 +38,8 @@ def generate_password():
     password += ''.join(random.choice(digits) for _ in range(2)) # 2 digits
     password += random.choice(special_chars) # one special character
     password += ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(6)) # 6 character long string
-    
-    return password
+
+    return (''.join(random.sample(password, len(password))))
 
 def copy_to_clipboard(password_var):
     password = password_var.get()
