@@ -49,23 +49,22 @@ def copy_to_clipboard(password_var):
 def generate_password_gui():
     root = Tk()
     root.title("Password Generator")
-    root.geometry("300x200")
+    root.geometry("270x115")
     root.iconbitmap("pwd.ico")
 
     password_var = StringVar()
 
-    password_label = Label(root, textvariable=password_var, font=("Helvetica", 16))
-    password_label.pack(pady=10)
+    password_label = Label(root, textvariable=password_var, font=('Anonymous Pro Regular', 13))
+    password_label.pack(pady=1)
 
-    generate_password_button = Button(root, text="Generate Password", font=("Helvetica", 12), command=lambda: password_var.set(generate_password()))
-    generate_password_button.pack(pady=10)
+    generate_password_button = Button(root, text="Generate Password", font=('Anonymous Pro Regular', 10), command=lambda: password_var.set(generate_password()))
+    generate_password_button.pack(pady=1)
 
-    generate_country_button = Button(root, text="Generate Country Password", font=("Helvetica", 12), command=lambda: password_var.set(generate_country_password()))
-    generate_country_button.pack(pady=10)
+    generate_country_button = Button(root, text="Generate Country Password", font=('Anonymous Pro Regular', 10), command=lambda: password_var.set(generate_country_password()))
+    generate_country_button.pack(pady=1)
 
-    copy_button = Button(root, text="Copy to Clipboard", command=lambda: copy_to_clipboard(password_var))
-
-    copy_button.pack(pady=10)
+    copy_button = Button(root, text="Copy to Clipboard", font=('Anonymous Pro Regular', 10), command=lambda: copy_to_clipboard(password_var))
+    copy_button.pack(pady=1)
 
     root.mainloop()
 
